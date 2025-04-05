@@ -1,8 +1,8 @@
 <?php
 session_start();
+$user_id = $_SESSION['user_id'];
 $conn = mysqli_connect("localhost", "root", "", "taskonedb");
 
-$user_id = $_SESSION['user_id'];
 
 // Remove user from any circles
 mysqli_query($conn, "DELETE FROM circle_members WHERE user_id='$user_id'");

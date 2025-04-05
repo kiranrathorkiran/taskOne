@@ -36,6 +36,10 @@ if (!$conn) die("Connection failed");
 $result = mysqli_query($conn, "SELECT * FROM circles WHERE admin_id = '$admin_id'");
 
 echo "<h2>Your Circles</h2>";
+if(!mysqli_fetch_assoc($result)){
+    echo "No circles found.";
+   
+}
 while ($row = mysqli_fetch_assoc($result)) {
     echo "ID: " . $row['id'] . " | Name: " . $row['circle_name'] . " 
           <a href='edit_circle.php?id=".$row['id']."'>Edit</a> | 

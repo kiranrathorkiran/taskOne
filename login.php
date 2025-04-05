@@ -31,5 +31,6 @@ if ($result && mysqli_num_rows($result) == 1) {
     }
 } else {
     echo "User not found.";
+    header("Location: ");
 }
 ?>

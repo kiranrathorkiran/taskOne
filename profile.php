@@ -2,7 +2,10 @@
 session_start();
 $conn = mysqli_connect("localhost", "root", "", "taskonedb");
 
-$user_id = $_SESSION['user_id'];
+$user_id = $_SESSION['user_id']?$_SESSION['user_id']:'';
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];

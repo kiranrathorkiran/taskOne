@@ -87,12 +87,13 @@ $username=isset($_SESSION['user_name'])?$_SESSION['user_name']:'user';
     <div>
       <?php if ($isLoggedIn): ?>
         <a class="btn" href="logout.php">Logout</a>
+        <a class="btn" href="profile.php">profile</a>
+
       <?php else: ?>
         <a class="btn" href="login.html">Login</a>
       <?php endif; ?>
 
       <a class="btn" href="signup.html">Signup</a>
-      <a class="btn" href="profile.php">profile</a>
     </div>
   </header>
 
@@ -110,12 +111,12 @@ $username=isset($_SESSION['user_name'])?$_SESSION['user_name']:'user';
       <p>Track your circle members on a live map with location and battery.</p>
       <a class="btn" href="map.html">View Map</a>
     </div>
-
-    <div class="card">
+    <?php echo $isLoggedIn ?"  <div class='card'>
       <h2>Manage Your Profile</h2>
       <p>Edit your profile, update details or delete your account.</p>
-      <a class="btn" href="profile.php">My Profile</a>
-    </div>
+      <a class='btn' href='profile.php'>My Profile</a>
+    </div>":''; ?>
+  
   </div>
 
   <footer>
