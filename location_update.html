@@ -1,0 +1,32 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Exact Location Map</title>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjqxBg1WSknHrQX3QCeHHCwpth3K7pnF0"></script>
+</head>
+<body>
+  <h2>User Location</h2>
+  <div id="map" style="width: 100%; height: 500px;"></div>
+
+  <script>
+    function initMap() {
+      const userLocation = { lat: 22.7195687, lng: 75.8577258 };
+
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 15,
+        center: userLocation,
+      });
+
+      const marker = new google.maps.Marker({
+        position: userLocation,
+        map: map,
+        title: "Battery: 62%",
+      });
+    }
+
+    window.onload = initMap;
+  </script>
+</body>
+</html>

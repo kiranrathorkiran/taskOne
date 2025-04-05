@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Circle Members Map</title>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjqxBg1WSknHrQX3QCeHHCwpth3K7pnF0"></script>
+</head>
+<body>
+  <h2>Circle Members Live Location</h2>
+  <div id="map" style="width:100%; height:500px;"></div>
+
+  
+  <script>
+    let map;
+  
+    function initMap() {
+      map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 14,
+        center: { lat: 0, lng: 0 } // Temporary center
+      });
+  
+      fetchMembers();
+      setInterval(fetchMembers, 10000); // Refresh every 10 seconds
+    }
+  
+    function fetchMembers() {
+      fetch('get_members.php')
+        .then(response => response.json())
+        .then(data => {
+          if (!data || data.length === 0) {
+            console.warn("No member data received.");
+            return;
+          }
+  
+          const lat = parseFloat(data[0].latitude);
+          const lng = parseFloat(data[0].longitude);
+  
+          if (!isNaN(lat) && !isNaN(lng)) {
+            map.setCenter({ lat, lng });
+          } else {
+            console.error("Invalid latitude or longitude values:", lat, lng);
+            return;
+          }
+  
+          // Optional: Clear existing markers if needed (advanced)
+          data.forEach(user => {
+            const userLat = parseFloat(user.latitude);
+            const userLng = parseFloat(user.longitude);
+  
+            if (!isNaN(userLat) && !isNaN(userLng)) {
+              new google.maps.Marker({
+                position: { lat: userLat, lng: userLng },
+                map,
+                title: `${user.name} | Battery: ${user.battery}%`
+              });
+            } else {
+              console.warn("Invalid user location:", user);
+            }
+          });
+        })
+        .catch(err => {
+          console.error("Error fetching member data:", err);
+        });
+    }
+  
+    window.onload = initMap;
+  </script>
+  
+</body>
+</html>
